@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-string reverse_words(string s){
+string reverse_words_in_string(string s){
     int n = s.size();
     string res = "", temp = "";
 
@@ -34,7 +34,7 @@ int main() {
     cout << "Before reversing the String :" << endl;
     cout << s << endl << endl;
 
-    string st = reverse_words(s);
+    string st = reverse_words_in_string(s);
 
     cout << "After reversing the String :" << endl;
     cout << st;    
