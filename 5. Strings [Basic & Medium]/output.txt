@@ -1,1 +1,5 @@
-(())()()
+Before reversing the String :
+  I am     Dinesh     
+
+After reversing the String :
+Dinesh am I
