@@ -1,2 +1,3 @@
-aacfssa 3
-abcad 2
+babad
+cbbaabbd
+cbdbd
