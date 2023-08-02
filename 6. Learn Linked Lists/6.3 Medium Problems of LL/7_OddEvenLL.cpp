@@ -49,6 +49,43 @@ Node* oddEvenList(Node* head) {
     return head;
 }
 
+
+Node* segregateEvenOdd(Node* head)
+{
+    // Write your code here
+    
+    Node *even = NULL, *odd = NULL, *evenH = NULL, *oddH = NULL;
+    Node* curr = head;
+
+    while(curr != NULL) {
+        int val = curr->data;
+        cout << val << endl;
+        if (val%2 == 0){
+          if (even == NULL) {
+            even = curr;
+            evenH = curr;
+          } else {
+            even->next = curr;
+            even = curr;
+          }
+        } else {
+            if (odd == NULL) {
+                odd = curr;
+                oddH = curr;
+            } else {
+                odd->next = curr;
+                odd = curr;
+            }
+        }
+        curr = curr->next;
+    }
+    odd->next = NULL;
+    even->next = oddH;
+    return evenH;
+
+}
+
+
 int main() {
 
     freopen("input.txt", "r", stdin);
@@ -63,7 +100,7 @@ int main() {
     Node* head = makeLL(arr);
     displayLL(head);
 
-    Node *head1 = oddEvenList(head);
+    Node *head1 = segregateEvenOdd(head);
     displayLL(head1);
     
     return 0;
