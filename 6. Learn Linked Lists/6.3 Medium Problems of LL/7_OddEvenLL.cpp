@@ -35,46 +35,19 @@ void displayLL(Node* head) {
 
 }
 
-Node* midNode (Node* head) {
-    Node* slow = head;
-    Node* fast = head;
+Node* oddEvenList(Node* head) {
+    if (head==NULL || head->next==NULL || head->next->next==NULL) return head;
 
-    while(fast->next!=NULL && fast->next->next!=NULL) {
-        slow = slow->next;
-        fast = fast->next->next;
+    Node *even = head->next, *odd = head, *evenH = head->next;
+    while (odd->next && even->next) {
+        odd->next = even->next;
+        odd = odd->next;
+        even->next = odd->next;
+        even = even->next;
     }
-
-    return slow;
+    odd->next = evenH;
+    return head;
 }
-
-void reverse(Node* &head){
-    Node* prev = NULL;
-    Node* curr = head->next;
-    while (curr!=NULL){
-        Node* next = curr->next;
-        curr->next = prev;
-        prev = curr;
-        curr = next;
-    }
-    head->next = prev;
-}
-
-
-bool isPalindrome(Node* &head) {
-    Node* mid = midNode(head);
-    reverse(mid);
-
-    Node* start = head;
-    mid = mid->next;
-    while (mid != NULL){
-        if(start->data != mid->data) return false;
-        start = start->next;
-        mid = mid->next;
-    }
-
-    return true;
-}
-
 
 int main() {
 
@@ -90,8 +63,8 @@ int main() {
     Node* head = makeLL(arr);
     displayLL(head);
 
-    bool isPal = isPalindrome(head);
-    cout << isPal;
+    Node *head1 = oddEvenList(head);
+    displayLL(head1);
     
     return 0;
 }
