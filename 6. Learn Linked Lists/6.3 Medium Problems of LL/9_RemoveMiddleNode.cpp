@@ -36,13 +36,15 @@ void displayLL(Node* head) {
 }
 
 Node* deleteMiddle(Node* head){
-    Node *slow = head, *fast = head;
-    while(fast->next && fast->next->next) {
+    if (head->next == NULL) return NULL;
+
+    Node *slow = head, *fast = head->next->next;
+    while(fast && fast->next) {
         slow = slow->next;
         fast = fast->next->next;
     }
 
-    cout << slow->data << endl;
+    slow->next = slow->next->next;
     return head;
 }
 
