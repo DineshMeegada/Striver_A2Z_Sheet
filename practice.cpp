@@ -1,110 +1,109 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class Node  {
-    public :
+struct Node {
     int data;
     Node* next;
-    
-    Node(int data) {
-        this -> data = data;
-        this -> next = NULL;
-    }
+    Node (int val) : data(val), next(nullptr) {}
 };
 
-void insertAtHead(Node* &head, int d){
-    Node* temp = new Node(d);
-    temp -> next = head;
-    head = temp;
-}
-
-void insertAtTail (Node* &tail, int d) {
-    Node* temp = new Node(d);
-    tail -> next = temp;
+void insertAtEnd(int data, Node* &tail) {
+    Node* temp = new Node(data);
+    tail->next = temp;
     tail = temp;
 }
 
-void insertAtMiddle (Node* &head, Node* &tail, int position, int d) {
-    if (position == 1) {
-        insertAtHead(head, d);
-        return;
+Node* makeLL (vector<int> arr) {
+    if (arr.empty()) return nullptr;
+
+    Node* head = new Node(arr[0]);
+    Node* tail = head;
+
+    for (int i=1; i<arr.size(); i++) {
+        insertAtEnd(arr[i], tail);
     }
 
-    Node* nodeToInsert = new Node(d);
-    Node* temp = head;
+    return head;
+}
 
-    while (--position > 1 && temp->next) {
-        temp = temp -> next;
+void displayLL(Node* head) {
+    while (head != nullptr) {
+        cout << head->data << ' ' ;
+        head = head->next;
     }
-
-    if (temp -> next == NULL) {
-        insertAtTail(tail, d);
-        return ;
-    }
-
-    nodeToInsert -> next = temp -> next;
-    temp -> next = nodeToInsert;
+    cout << endl;
 
 }
 
-void deleteNode (Node* &head, int position) {
-    Node* curr = head;
-
-    if (position == 1) {
-        head = curr->next;
-        curr->next = NULL;
-        return;
+Node *midPoint(Node *head) {
+    Node *slow = head, *fast = head->next;
+    while(fast && fast->next) {
+        slow = slow->next;
+        fast = fast->next->next;
     }
 
-    while (--position > 1){
-        curr = curr -> next;
-    }
-
-    Node* temp = curr->next;
-    curr->next = temp->next;
-    temp->next = NULL;
+    return slow;
 }
 
-void print (Node* &head) {
-    Node* temp = head;
-    while (temp != NULL) {
-        cout << temp -> data << " ";
-        temp = temp->next;
+Node *reverse(Node *head){
+    Node *pre = head, *curr = head->next, *next = NULL;
+
+    while (curr) {
+        Node *fast = curr->next;
+        curr->next = next;
+        if (fast) pre->next = fast;
+        next = curr;
+        curr = fast;
     }
+
+    return head;
+}
+
+Node *merge(Node *head1, Node *head2) {
+    Node *resH = new Node (0);
+    Node *res = resH;
+
+    while (head1){
+        res->next = head1;
+        head1 = head1->next;
+        res = res->next;
+        res->next = head2;
+        head2 = head2 ? head2->next : NULL;
+        res = res->next;
+    }
+
+    return resH->next;
+}
+
+Node *reorderList(Node *head){
+    if (!head) return head;
+
+    Node *mid = midPoint(head);
+
+    Node *midHead = reverse(mid);
+    Node *secHalf = midHead->next;
+    midHead->next = NULL;
+
+    Node *result = merge(head, secHalf);
+    return result;
 }
 
 int main() {
-    
+
     freopen("input.txt", "r", stdin);
     freopen("output.txt", "w", stdout);
-
-    Node* node1 = new Node(4) ;
-
-    Node* head = node1;
-    Node* tail = node1;
-
-    insertAtHead(head, 8);
-    insertAtHead(head, 9);
-    print(head);
-    cout << endl;
-
-    insertAtTail(tail, 13);
-    insertAtTail(tail, 67);
-    print(head);
-    cout << endl;
-
-    insertAtMiddle(head, tail, 9, 22);
-    print(head);
-    cout << endl;
-
-    deleteNode(head, 1);
-    print(head);
-    cout << endl;
-
-    cout << "head -> " << head->data << endl;
-    cout << "tail -> " << tail->data << endl;
- 
     
+    int n;
+    cin >> n;
+    
+    vector<int> arr(n);
+    for (int i=0; i<n; i++) cin >> arr[i] ;
+    
+    Node *head = makeLL(arr);
+    displayLL(head);
 
+    Node *head1 = reorderList(head);
+    displayLL(head1);
+    
     return 0;
 }
