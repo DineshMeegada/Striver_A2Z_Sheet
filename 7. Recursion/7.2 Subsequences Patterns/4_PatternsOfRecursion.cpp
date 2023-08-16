@@ -79,22 +79,48 @@ int countSubs(int ind, vector<int> arr, int k, int curr){
     return a+b;
 }
 
+// Count the number of unique subsequences
+void distSubs(int ind, string s, string temp, int &cnt){
+    if (ind >= s.size()){
+        for (auto it: temp) cout << it << ' ';
+        cout << endl;
+        cnt++;
+        return;
+    }
+
+    temp.push_back(s[ind]);
+    distSubs(ind+1, s, temp, cnt);
+
+    temp.pop_back();
+    while (ind<s.size() && s[ind]==s[ind+1]) ind++;
+    distSubs(ind+1, s, temp, cnt);
+}
+
 
 int main() {
 
     freopen("input.txt", "r", stdin);
     freopen("output.txt", "w", stdout);
     
-    int n, k;
-    cin >> n >> k;
+    // int n, k;
+    // cin >> n >> k;
     
-    vector<int> arr(n);
-    for (int i=0; i<n; i++) cin >> arr[i] ;
+    // vector<int> arr(n);
+    // for (int i=0; i<n; i++) cin >> arr[i] ;
     
     // bool sub = printOneSubArr(0, arr, k, 0, {});
     
-    int count = countSubs(0, arr, k, {});
-    cout << count ;
+    // int count = countSubs(0, arr, k, {});
+    // cout << count ;
     
+
+    string s;
+    cin >> s;
+    int cnt1 = 0;
+
+    distSubs(0, s, "", cnt1);
+    cout << cnt1 << endl;;
+
+
     return 0;
 }
