@@ -36,8 +36,8 @@ vector<string> letterCombinations(string digits) {
 
 int main() {
 
-    // freopen("input.txt", "r", stdin);
-    // freopen("output.txt", "w", stdout);
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
     
     string s;
     cin >> s;

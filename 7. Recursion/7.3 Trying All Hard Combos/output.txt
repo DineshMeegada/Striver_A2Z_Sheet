@@ -1,0 +1,13 @@
+a     0 0
+a     1 1
+b     2 2
+b     3 3
+bb     2 3
+aa     0 1
+b     2 2
+b     3 3
+bb     2 3
+a a b b 
+a a bb 
+aa b b 
+aa bb 
