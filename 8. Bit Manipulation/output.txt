@@ -1,1 +1,2 @@
-1
+Before swapping : 7 12
+After swapping : 12 7
