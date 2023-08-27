@@ -78,8 +78,6 @@ vector<int> twoOddNum(vector<int> arr){
         xor1 = xor1 >> 1;
     }
 
-    cout <<ind << endl;
-
     int mask = 1 << ind;
     int a = 0, b = 0;
     for (auto it: arr) {
@@ -88,7 +86,10 @@ vector<int> twoOddNum(vector<int> arr){
         else b = b^it;
     }
 
-    return {a, b};
+    int maxi = max(a, b);
+    int mini = min(a, b);
+
+    return {maxi, mini};
 }
 
 int main() {
