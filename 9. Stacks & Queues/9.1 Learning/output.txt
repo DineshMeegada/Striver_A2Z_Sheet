@@ -1,0 +1,3 @@
+Stack is not empty
+Stack is not full
+1
