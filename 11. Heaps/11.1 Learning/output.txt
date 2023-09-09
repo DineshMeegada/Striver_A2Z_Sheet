@@ -1,0 +1,9 @@
+55 54 53 50 52 
+54 52 53 50 
+52 50 53 
+
+Printing the heap : 
+55 53 54 52 50 
+
+Printing the sorted heap : 
+50 52 53 54 55 
