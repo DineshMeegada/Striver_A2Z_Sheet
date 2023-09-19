@@ -25,32 +25,35 @@ TreeNode* createTree(vector<int> &arr){
     return formTree(arr, arr.size(), 0);
 }
 
-
-// Using 2 Stacks
+// Using Single Stacks
 vector<int> postorderTraversal(TreeNode* root) {
     vector<int> ans;
     if (!root) return ans;
 
-    stack<TreeNode*> st1, st2;
-    st1.push(root);
-    
-    while (!st1.empty()) {
-        TreeNode* curr = st1.top();
-        st1.pop();
-        st2.push(curr);
+    stack<TreeNode*> st;
+    while (root || !st.empty()) {
+        if (root) {
+            st.push(root);
+            root = root->left;
+        }else {
+            TreeNode *temp = st.top()->right;
+            if (temp) root = temp;
+            else {
+                temp = st.top();
+                st.pop();
+                ans.push_back(temp->data);
 
-        if (curr->left) st1.push(curr->left);
-        if (curr->right) st1.push(curr->right);
-    }
-
-    while (!st2.empty()){
-        ans.push_back(st2.top()->data);
-        st2.pop();
-    }
+                while (!st.empty() && st.top()->right == temp){
+                    temp = st.top();
+                    st.pop();
+                    ans.push_back(temp->data);
+                }
+            }
+        }
+    }    
 
     return ans;
 }
-
 
 int main() {
 
