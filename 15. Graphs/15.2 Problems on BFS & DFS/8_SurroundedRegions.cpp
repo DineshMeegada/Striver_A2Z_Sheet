@@ -28,6 +28,11 @@ vector<vector<char>> fill(vector<vector<char>> board) {
         if (board[i][m-1]=='O' && res[i][m-1]=='X') dfs(i, m-1, board, res);
     }
 
+    for (int i=0; i<m; i++) {
+        if (board[0][i]=='O' && res[0][i]=='X') dfs(0, i, board, res);
+        if (board[n-1][i]=='O' && res[n-1][i]=='X') dfs(n-1, i, board, res);
+    }
+
     return res;
 }
 
