@@ -28,7 +28,32 @@ vector <int> dijkstraQueue(int v, vector<vector<int>> adj[], int src) {
     return dist;
 }
 
+// Using Priority Queue
+vector <int> dijkstraPQ(int v, vector<vector<int>> adj[], int src) {
+    vector<int> dist(v, 1e9);
+    dist[src] = 0;
 
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>> > pq;
+    pq.push({0, src});
+
+    while (!pq.empty()) {
+        int dis = pq.top().first;
+        int node = pq.top().second;
+        pq.pop();
+
+        for (auto it: adj[node]) {
+            int adjNode = it[0];
+            int adjWt = it[1];
+
+            if (dist[adjNode] > dis+adjWt) {
+                dist[adjNode] = dis+adjWt;
+                pq.push({dist[adjNode], adjNode});
+            }
+        }
+    }
+
+    return dist;
+}
 
 // Using set
 vector <int> dijkstraSet(int v, vector<vector<int>> adj[], int src) {
