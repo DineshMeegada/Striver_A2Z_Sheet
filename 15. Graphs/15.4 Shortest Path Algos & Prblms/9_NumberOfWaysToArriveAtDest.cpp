@@ -17,7 +17,7 @@ int countPaths(int n, vector<vector<int>>& roads) {
     vector<int> ways(n, 0);
     ways[0] = 1;
 
-    vector<int> dist(n, 1e18);
+    vector<int> dist(n, 1e9);
     dist[0] = 0;
 
     priority_queue< pair<int,int>, vector<pair<int,int>>, 
