@@ -25,6 +25,8 @@ vector<int> bellman_ford(int v, vector<vector<int>>& edges, int src) {
         if (dist[u] != 1e8 && dist[u]+wt < dist[v]) return {-1};
     }
 
+    cout << "Returning " << endl;
+
     return dist;
 }
 
