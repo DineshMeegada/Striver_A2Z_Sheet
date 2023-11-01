@@ -2,6 +2,7 @@
 using namespace std;
 
 vector<vector<int>> minSpanningTree(int v, vector<vector<int>> adj[]){
+    // {edgeWt, {node, parent}}
     priority_queue< pair<int,pair<int,int>>, vector<pair<int,pair<int,int>>>, greater<pair<int,pair<int,int>>> > pq;
     vector<int> vis(v, 0);
 

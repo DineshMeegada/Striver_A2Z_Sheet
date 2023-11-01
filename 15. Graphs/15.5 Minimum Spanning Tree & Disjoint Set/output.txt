@@ -1,3 +1,2 @@
-MST value : 4
-0 2 
-2 1 
+Not same
+Same
