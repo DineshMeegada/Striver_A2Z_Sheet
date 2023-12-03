@@ -32,7 +32,7 @@ public:
         } else if (rank[ulp_u] < rank[ulp_v]) {
             parent[ulp_u] = ulp_v;
         } else {
-            parent[ulp_u] = ulp_v;
+            parent[ulp_v] = ulp_u;
             rank[ulp_u]++;
         }
     }

@@ -29,6 +29,32 @@ string betterCompression(string s){
 }
 
 
+string printMinNumberForPattern(string s){
+    int n = s.size();
+    
+    string ans = "";
+    for (int i=1; i<=n+1; i++) {
+        ans += to_string(i);
+    }
+    
+    int i = 0;
+    while (i<n) {
+        int start = i;
+        while (i<n && s[i]=='D') i++;
+        
+        int end = i;
+        while (start <= end) {
+            swap(ans[start++], ans[end--]);
+        }
+        
+        cout << start << ' ' << end << endl;
+    }
+    
+    return ans;
+}
+
+
+
 int main() {
 
     freopen("input.txt", "r", stdin);
@@ -37,7 +63,7 @@ int main() {
     string s;
     cin >> s;
     
-    string res = betterCompression(s);
+    string res = printMinNumberForPattern(s);
     cout << res;
 
     
