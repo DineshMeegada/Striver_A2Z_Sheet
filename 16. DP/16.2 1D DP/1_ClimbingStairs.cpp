@@ -1,24 +1,26 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// Recursion
-int fib1(int n){
-    if (n <= 1) return n;
-    return fib1(n-1) + fib1(n-2);
+// Memoization
+int solve(int ind, vector<int> &dp){
+    if (ind<=1) return 1;
+    if (dp[ind] != -1) return dp[ind];
+
+    int left = solve(ind-1, dp);
+    int right = solve(ind-2, dp);
+
+    return dp[ind] = left + right;
 }
 
-// Memoization
-int fib2(int n, vector<int> &dp){
-    if (n <= 1) return n;
-    if (dp[n] != -1) return dp[n];
-
-    return dp[n] = fib2(n-1, dp) + fib2(n-2, dp);
+int climbStairs(int n) {
+    vector<int> dp(n+1, -1);
+    return solve(n, dp);
 }
 
 // Tabulation
-int fib3(int n){
+int climbStairs2(int n){
     vector<int> dp(n+1, -1);
-    dp[0] = 0;
+    dp[0] = 1;
     dp[1] = 1;
 
     for (int i=2; i<=n; i++){
@@ -29,10 +31,10 @@ int fib3(int n){
 }
 
 // Space Optimization
-int fib4(int n){
+int climbStairs3(int n){
     if (n <= 1) return 1;
-    int prev = 1, prev2 = 0;
 
+    int prev = 1, prev2 = 1;
     for (int i=2; i<=n; i++){
         int cur = prev + prev2;
         prev2 = prev;
@@ -50,9 +52,7 @@ int main() {
     int n;
     cin >> n;
 
-    vector<int> dp(n+1, -1);
-    int fib_num = fib4(n);
-    cout << fib_num;
+    cout << climbStairs3(n);
     
     
     return 0;
