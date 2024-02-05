@@ -1,57 +1,78 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-string betterCompression(string s){
-    map<char, int> freq;
+vector<int> getTotalExecTime(int n, vector<string> logs){
+    unordered_map<int, int> start, end;
+    stack<int> st;
 
-    int n = s.size(), i = 0;
-    while (i < n) {
-        char letter = s[i++];
+    int mini = 1e9, maxi = 0;
 
-        string temp = "";
-        while (i<n && s[i]-'0'>=0 && s[i]-'0'<=9){
-            temp = temp + s[i];
-            i++;
-        }
+    for (auto s: logs){
+        string delimiter = ":";
 
-        int f = stoi(temp);
+        size_t pos = 0;
+        string token;
+        int ind;
+        string fun;
+        int time;
 
-        freq[letter] += f;        
+        pos = s.find(delimiter);
+        ind = stoi(s.substr(0, pos));
+        s.erase(0, pos + delimiter.length());
+
+        pos = s.find(delimiter);
+        fun = s.substr(0, pos);
+        s.erase(0, pos + delimiter.length());
+
+        time = stoi(s); 
+
+        if (fun == "start") start[time] = ind;
+        else end[time] = ind;
+
+        mini = min(mini, time);
+        maxi = max(maxi, time);
     }
 
-    string res = "";
-    for(auto it: freq) {
-        res += it.first;
-        res += to_string(it.second);
+    vector<int> ans(n);
+    for (int t=mini; t<=maxi; t++){
+        if (start.find(t) != start.end()) st.push(start[t]);
+        else if (end.find(t) != end.end()) st.pop();
+
+        ans[st.top()]++;
     }
 
-    return res;
-}
-
-
-string printMinNumberForPattern(string s){
-    int n = s.size();
-    
-    string ans = "";
-    for (int i=1; i<=n+1; i++) {
-        ans += to_string(i);
-    }
-    
-    int i = 0;
-    while (i<n) {
-        int start = i;
-        while (i<n && s[i]=='D') i++;
-        
-        int end = i;
-        while (start <= end) {
-            swap(ans[start++], ans[end--]);
-        }
-        
-        cout << start << ' ' << end << endl;
-    }
-    
     return ans;
 }
+
+
+// def getTotalExecTime(n, logs):
+//     start, end = {}, {}
+//     st = []
+
+//     mini, maxi = 1e9, 0
+
+//     for s in logs:
+//         ind, fun, time = map(int, s.split(':'))
+
+//         if fun == "start":
+//             start[time] = ind
+//         else:
+//             end[time] = ind
+
+//         mini = min(mini, time)
+//         maxi = max(maxi, time)
+
+//     ans = [0]*n
+//     for t in range(mini, maxi+1):
+//         if t in start:
+//             st.append(start[t])
+//         elif t in end:
+//             st.pop()
+
+//         ans[st[-1]] += 1
+
+//     return ans
+
 
 
 
@@ -60,11 +81,6 @@ int main() {
     freopen("input.txt", "r", stdin);
     freopen("output.txt", "w", stdout);
     
-    string s;
-    cin >> s;
-    
-    string res = printMinNumberForPattern(s);
-    cout << res;
 
     
     
